@@ -1,0 +1,11 @@
+# Never commit CRM data (recruiter emails, notes)
+data/
+*.sql
+*.json
+!package.json
+!package-lock.json
+.dev.vars
+.wrangler/
+node_modules/
+.DS_Store
+Thumbs.db
