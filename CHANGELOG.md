@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- LinkedIn autofill now works in any browser tab. When the page can't open LinkedIn itself (outside the Claude desktop app), it asks for a screenshot of the profile and Claude reads the name, title and company from it. Skipping still fills the name from the URL.
+
 ## Release 1 (v1.0.0) — October 28, 2026
 
 The first release: the CRM as it runs today as a claude.ai artifact.
