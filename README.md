@@ -27,7 +27,7 @@ Other details:
 - **The claude.ai artifact runtime**, which provides:
   - the page's database, with `contacts` and `applications` collections
   - the Gmail and Microsoft 365 connectors for the live activity feeds
-  - the Claude browser for LinkedIn autofill
+  - the Crustdata connector for LinkedIn autofill (profile URL → name, title, company), with the Claude desktop app's browser or a profile screenshot as fallbacks
 
 Because of that runtime, opening `index.html` straight from disk shows the layout without data. It runs fully inside claude.ai.
 

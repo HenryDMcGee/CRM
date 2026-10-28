@@ -670,11 +670,45 @@ function askScreenshot(url, nameGuess) {
   });
 }
 
+/* ---------- Crustdata lookup (any browser tab; 1 Crustdata credit per found profile) ---------- */
+function parseCrust(res) {
+  const pl = res && res.payload;
+  if (Array.isArray(pl)) return pl;
+  if (pl && typeof pl === 'object') return Array.isArray(pl.result) ? pl.result : [pl];
+  let text = typeof pl === 'string' ? pl : '';
+  if (!text && res && Array.isArray(res.content)) text = res.content.map((c) => (c && c.text) || '').join('\n');
+  const i = text.indexOf('['), j = text.lastIndexOf(']');
+  if (i >= 0 && j > i) { try { const a = JSON.parse(text.slice(i, j + 1)); if (Array.isArray(a)) return a; } catch (e) { /* fall through */ } }
+  return extractJsonObjects(text);
+}
+async function crustLookup(url) {
+  const full = url.startsWith('http') ? url : 'https://' + url;
+  const res = await state.mcp.callTool('Crustdata', 'crustdata_people_enrich_v2', {
+    params: { professional_network_profile_urls: [full], fields: ['basic_profile', 'experience.employment_details.current'] },
+  }, { cache: false });
+  const hit = parseCrust(res).find((e) => e && Array.isArray(e.matches) && e.matches.length);
+  if (!hit) return null;
+  const pd = hit.matches[0].person_data || {};
+  const bp = pd.basic_profile || {};
+  const cur = ((pd.experience || {}).employment_details || {}).current || [];
+  const job = cur.find((j) => j && j.is_default) || cur[0] || {};
+  const clip = (v) => (typeof v === 'string' ? v.trim().slice(0, 160) : '');
+  return { name: clip(bp.name), title: clip(bp.current_title || job.title), company: clip(job.name) };
+}
+
 async function liLookup(url) {
   const m = url.match(/linkedin\.com\/in\/([^/?#]+)/i);
   if (!m) throw { msgText: 'Put a linkedin.com/in/… URL in the LinkedIn cell first.' };
   const out = { name: nameFromSlugText(m[1]) };
   if (!state.mcp) { out.needsShot = true; return out; }
+  // 1) Crustdata: works in any tab once the viewer has the Crustdata connector.
+  try {
+    const c = await crustLookup(url);
+    if (c && (c.name || c.title || c.company)) return { ...c, source: 'Crustdata' };
+  } catch (e) {
+    console.warn('Crustdata lookup unavailable:', e && e.code, e && e.message);
+  }
+  // 2) The Claude desktop app's browser, then 3) a screenshot.
   try {
     await state.mcp.callTool('host:claude_browser', 'navigate', { url: url.startsWith('http') ? url : 'https://' + url });
   } catch (e) {
@@ -754,6 +788,9 @@ async function autofillRowAg(p, btn) {
     }
     const fills = {};
     for (const k of ['name', 'title', 'company']) if (got[k] && !(data[k] || '').trim()) fills[k] = got[k];
+    // a name that was only guessed from the URL earlier gets replaced by the real one
+    const slug = (url.match(/linkedin\.com\/in\/([^/?#]+)/i) || [])[1];
+    if (got.source && got.name && slug && (data.name || '').trim().toLowerCase() === nameFromSlugText(slug).toLowerCase() && data.name !== got.name) fills.name = got.name;
     if (data._draft && !(data.last_contact || '').trim()) fills.last_contact = new Date().toLocaleDateString('en-CA');
     Object.assign(data, fills);
     p.api.applyTransaction({ update: [data] });
@@ -762,7 +799,7 @@ async function autofillRowAg(p, btn) {
       else gridMsg(got.partial || 'Filled what was found — add a name to save the row.');
     } else if (Object.keys(fills).length) {
       await saveRowAg(data);
-      gridMsg('Filled ' + Object.keys(fills).join(', ') + ' — check the row.' + (got.partial ? ' ' + got.partial : ''));
+      gridMsg('Filled ' + Object.keys(fills).sort((a, b) => ((['name', 'title', 'company'].indexOf(a) + 1) || 9) - ((['name', 'title', 'company'].indexOf(b) + 1) || 9)).join(', ') + (got.source ? ' from ' + got.source : '') + ' — check the row.' + (got.partial ? ' ' + got.partial : ''));
     } else {
       gridMsg(got.partial || 'Nothing to fill — name, title and company are already set.');
     }

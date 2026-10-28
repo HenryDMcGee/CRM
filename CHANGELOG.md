@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- LinkedIn autofill now looks people up with Crustdata first (name, current title and company from just the profile URL, in any browser tab; 1 Crustdata credit per profile found). A name that was only guessed from the URL is replaced with the real one. The Claude desktop app's browser and the screenshot option remain as fallbacks.
 - LinkedIn autofill now works in any browser tab. When the page can't open LinkedIn itself (outside the Claude desktop app), it asks for a screenshot of the profile and Claude reads the name, title and company from it. Skipping still fills the name from the URL.
 
 ## Release 1 (v1.0.0) — October 28, 2026
