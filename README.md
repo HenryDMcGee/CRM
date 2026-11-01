@@ -4,11 +4,9 @@ My recruiting CRM for Summer 2027 MBA product management internships. It tracks 
 
 Release 1 is the CRM exactly as it runs today: a single-page app hosted as a claude.ai artifact, at [claude.ai/artifact/6JLKstwRaKPuGY47LfshiD](https://claude.ai/artifact/6JLKstwRaKPuGY47LfshiD).
 
-## Demo
+## Overview deck
 
-[Watch the 36-second demo](docs/media/internship-crm-demo.mp4) (1080p): the Applications pipeline fed by Gmail, UT Outlook and LinkedIn, adding a contact from a LinkedIn link, and the live activity feeds. It was recorded from the real page with made-up sample data, so no real contacts or applications appear in it.
-
-There's also an 8-slide LinkedIn carousel that walks through the situation, solution, design, result and roadmap: [PDF](docs/media/internship-crm-linkedin-carousel.pdf) or [PowerPoint](docs/media/internship-crm-linkedin-carousel.pptx). The PowerPoint uses the free Google fonts IBM Plex Sans and Source Serif 4.
+An 8-slide LinkedIn carousel walks through the situation, solution, design, result and roadmap: [PDF](docs/media/internship-crm-linkedin-carousel.pdf) or [PowerPoint](docs/media/internship-crm-linkedin-carousel.pptx). It uses made-up sample data, and the PowerPoint uses the free Google fonts IBM Plex Sans and Source Serif 4.
 
 ## What it does
 
