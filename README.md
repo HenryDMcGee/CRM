@@ -8,6 +8,8 @@ Release 1 is the CRM exactly as it runs today: a single-page app hosted as a cla
 
 [Watch the 36-second demo](docs/media/internship-crm-demo.mp4) (1080p): the Applications pipeline fed by Gmail, UT Outlook and LinkedIn, adding a contact from a LinkedIn link, and the live activity feeds. It was recorded from the real page with made-up sample data, so no real contacts or applications appear in it.
 
+There's also an 8-slide LinkedIn carousel that walks through the situation, solution, design, result and roadmap: [PDF](docs/media/internship-crm-linkedin-carousel.pdf) or [PowerPoint](docs/media/internship-crm-linkedin-carousel.pptx). The PowerPoint uses the free Google fonts IBM Plex Sans and Source Serif 4.
+
 ## What it does
 
 | Tab | What's on it |

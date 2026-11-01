@@ -3,6 +3,7 @@
 ## Unreleased
 
 - Added a 36-second demo video (`docs/media/internship-crm-demo.mp4`), recorded from the real page with made-up sample data, and linked it from the README.
+- Added the 8-slide LinkedIn carousel as a PDF and PowerPoint (`docs/media/internship-crm-linkedin-carousel.*`), styled like the CRM and using made-up sample data.
 - LinkedIn autofill now looks people up with Crustdata first (name, current title and company from just the profile URL, in any browser tab; 1 Crustdata credit per profile found). A name that was only guessed from the URL is replaced with the real one. The Claude desktop app's browser and the screenshot option remain as fallbacks.
 - LinkedIn autofill now works in any browser tab. When the page can't open LinkedIn itself (outside the Claude desktop app), it asks for a screenshot of the profile and Claude reads the name, title and company from it. Skipping still fills the name from the URL.
 
