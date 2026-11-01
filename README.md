@@ -4,10 +4,6 @@ My recruiting CRM for Summer 2027 MBA product management internships. It tracks 
 
 Release 1 is the CRM exactly as it runs today: a single-page app hosted as a claude.ai artifact, at [claude.ai/artifact/6JLKstwRaKPuGY47LfshiD](https://claude.ai/artifact/6JLKstwRaKPuGY47LfshiD).
 
-## Demo
-
-[Watch the 36-second demo](docs/media/internship-crm-demo.mp4) (1080p): the Applications pipeline fed by Gmail, UT Outlook and LinkedIn, adding a contact from a LinkedIn link, and the live activity feeds. It was recorded from the real page with made-up sample data, so no real contacts or applications appear in it.
-
 ## What it does
 
 | Tab | What's on it |
